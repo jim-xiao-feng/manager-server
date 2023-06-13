@@ -8,6 +8,7 @@ const logger = require('./utils/logger')
 
 const index = require('./routes/index')
 const users = require('./routes/users')
+const koajwt = require('koa-jwt')
 
 // error handler
 onerror(app)
@@ -19,7 +20,6 @@ app.use(bodyparser({
   enableTypes:['json', 'form', 'text']
 }))
 app.use(json())
-// app.use(logger())
 app.use(require('koa-static')(__dirname + '/public'))
 
 app.use(views(__dirname + '/views', {
@@ -36,13 +36,17 @@ app.use(async (ctx, next) => {
   await next()
 })
 
+// 验证token是否过期，或者是否有token,没有会报401。过滤掉登录接口
+app.use(koajwt({ secret: 'lebulangjim' }).unless({
+  path: ['/users/login']
+}))
+
 // routes
 app.use(index.routes(), index.allowedMethods())
 app.use(users.routes(), users.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {
-  // console.error('server error', err, ctx)
   logger.error(err.stack)
 });
 
