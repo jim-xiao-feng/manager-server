@@ -70,7 +70,7 @@ router.post('/delete', async (ctx) => {
 
 // 用户新增、编辑
 router.post('/operate', async (ctx) => {
-  const { userId, userName, userEmail, mobile, job, state, roleList, depId, action } = ctx.request.body
+  const { userId, userName, userPwd, userEmail, mobile, job, state, roleList, depId, action } = ctx.request.body
   if (action == 'add') {
     // 新增
     if (!userName || !userEmail || !depId) {

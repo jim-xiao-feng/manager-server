@@ -14,3 +14,4 @@ npm run start
 1. 用户登录: /users/login
 2. 用户列表: /users/list
 3. 用户删除: /users/delete
+4. 用户新增编辑：/users/operate
