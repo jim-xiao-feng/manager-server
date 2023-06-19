@@ -19,5 +19,6 @@ module.exports = {
         return {
             msg, code, data: null
         }
-    }
+    },
+    CODE
 }
